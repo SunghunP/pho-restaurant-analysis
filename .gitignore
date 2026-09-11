@@ -1,0 +1,6 @@
+# Ignore md files for talking though processes
+thoughts/
+.venv/
+__pycache__/
+output/
+.ipynb_checkpoints/
