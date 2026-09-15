@@ -5,3 +5,4 @@ __pycache__/
 output/
 .ipynb_checkpoints/
 Article.md
+data/restaurant_sales_sept03_09.csv
