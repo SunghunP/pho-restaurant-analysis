@@ -2,10 +2,6 @@
 
 **Checking whether "business feels slower" actually shows up in the sales data (Python + Pandas)**
 
-*Prepared by Joe Park*
-
-Data source: ~3 months of point-of-sale export data from my parents' restaurant (June 3 – September 2, 2026), 38,293 line items.
-
 ![Average sales by day of week and hour, showing peaks at lunch, early dinner, and late night](assets/sales_heatmap.png)
 *Average sales by day and hour across the quarter — darker green marks the busiest slots.*
 
