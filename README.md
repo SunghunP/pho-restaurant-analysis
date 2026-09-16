@@ -1,6 +1,6 @@
 # Pho Restaurant Sales Analysis
 
-**Checking whether "business feels slower" actually shows up in the sales data (Python + Pandas)**
+**Checking whether "business feels slower" actually shows up in the sales data (SQL Server + Python)**
 
 ![Average sales by day of week and hour, showing peaks at lunch, early dinner, and late night](assets/sales_heatmap.png)
 *Average sales by day and hour across the quarter — darker green marks the busiest slots.*
@@ -37,35 +37,19 @@ My parents felt like business had been slowing down and wanted a specific number
 - Run a Tuesday-specific promotion, since it's consistently the slowest day.
 - Since the 5PM and 9PM peaks are mostly to-go orders, focus extra staffing there on packing to-go orders rather than table service.
 
-**Follow-up check:** The week after a new Combo item went live (testing one of the recommendations above), actual revenue came in slightly *below* simple baseline forecasts rather than above them — so there's no measurable lift yet. See [Checking the Recommendations Against Real Data](#checking-the-recommendations-against-real-data) below.
-
 ## Methodology
 
-Starting from the raw POS export, columns that were redundant, unused, or order-level values duplicated across every line item (e.g. `Order Subtotal`) were dropped, and remaining columns were renamed and retyped. `Category` values were standardized.
+The raw POS export was imported into SQL Server and cleaned in SSMS on a working copy of the table: columns that were redundant, unused, or order-level values duplicated across every line item (e.g. `Order_Subtotal`) were dropped, the remaining columns were renamed and retyped, `Category` values were standardized, `QUICK ORDER` was merged into `TO GO`, and day of week and hour were rebuilt as computed columns from the order timestamp. The cleaned table is then exported to CSV and loaded into pandas for the analysis.
 
 The core analysis builds a day-by-hour sales heatmap — averaged per weekday occurrence rather than by item count, so it reflects how busy the restaurant actually is rather than the average price of items sold — then splits it by dine-in vs. to-go, ranks menu items by both units sold and revenue, and tracks total revenue week over week.
 
-**Tools:** pandas, seaborn, matplotlib.
-
-## Checking the Recommendations Against Real Data
-
-To see whether the recommendations actually moved revenue once real data came in, rather than just assuming they worked, I built two simple baselines on top of the weekly revenue series: a **Naive forecast** (next week = this week) and a **3-Week Moving Average**. Neither is meant to be a sophisticated forecast — they're a floor to check any real business change against. If a recommendation doesn't move revenue past what these simple baselines already expect, it isn't showing a measurable effect yet.
-
-I projected both baselines one week forward (week ending Sep 6), then checked that projection against a new week of real POS data (Sep 3–9) that picks up right where the original data cuts off. That new data also includes a new Combo item the restaurant started testing based on one of the recommendations above.
-
-![Baseline forecast vs. actual revenue for the week ending Sep 6](assets/weekly_revenue_baseline_actual.png)
-*Actual revenue for the week ending Sep 6 against both baselines.*
-
-**Result:** Actual revenue for the week ending Sep 6 came in at $26,356. Naive was about 1.7% off and the 3-Week MA about 3.0% off — both landed a bit high, meaning actual revenue came in *below* what either baseline expected.
-
-That's only one week of data with the new Combo item in it, so it's too early to say the changes made a real difference either way. If anything, this week doesn't show a lift yet. I want to keep comparing actual revenue against these baselines over the next several weeks to see if a clearer pattern shows up.
+**Tools:** SQL Server (SSMS), pandas, seaborn, matplotlib.
 
 ## Limitations
 
 - **No baseline for comparison.** This is a single quarter with no prior period (last year, last quarter) to benchmark against, so "flat" describes this 13-week window only.
 - **Small sample per heatmap cell.** Each day-and-hour average is built from only 13–14 data points (one per matching weekday in the quarter), so a single unusual day could shift a cell more than a real pattern would.
-- **Forecast check is one data point.** The Naive and 3-Week MA baselines were checked against a single new week, so it's too early to treat this as validation of either baseline or of the recommendations' impact.
 
 ## Full Analysis
 
-The complete notebook — cleaning steps, all charts, and full write-up — is in [`notebooks/eda.ipynb`](notebooks/eda.ipynb).
+The complete notebook — SQL cleaning steps, all charts, and full write-up — is in [`notebooks/eda.ipynb`](notebooks/eda.ipynb).
