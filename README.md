@@ -7,7 +7,7 @@
 
 ## The Question
 
-My parents felt like business had been slowing down and wanted a specific number they could see, rather than just a feeling from being there every day. This analysis was meant to check that feeling against the actual data, along with:
+The owners of a local business, a pho restaurant, felt that sales had been slowing down and wanted a specific number they could see, rather than just a feeling from being there every day. This analysis was meant to check that feeling against the actual data, along with:
 
 - When is the restaurant busiest, by day and hour?
 - Which menu items are the most popular and most profitable, and are they the same?
@@ -15,7 +15,7 @@ My parents felt like business had been slowing down and wanted a specific number
 
 ## The Conclusion
 
-**Revenue stayed flat across the quarter at roughly $26,000 per week — this contradicts what my parents assumed going in.** The data doesn't support "business is slowing down." That changes the conversation from "how do we stop the decline" to "how do we grow from a stable baseline."
+**Revenue stayed flat across the quarter at roughly $26,000 per week — this contradicts what the owners assumed going in.** The data doesn't support "business is slowing down." That changes the conversation from "how do we stop the decline" to "how do we grow from a stable baseline."
 
 ![Weekly revenue trend showing a flat line around $26,000 per week across the quarter](assets/weekly_revenue_trend.png)
 *Weekly revenue, holding steady across the quarter rather than trending up or down.*
